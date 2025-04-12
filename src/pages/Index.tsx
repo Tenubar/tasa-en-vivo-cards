@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Banner from '@/components/Banner';
 import UpdateSection from '@/components/UpdateSection';
 import CurrencyInput from '@/components/CurrencyInput';
@@ -16,30 +16,45 @@ const cardData = [
 ];
 
 const Index: React.FC = () => {
-  const [dollarValue, setDollarValue] = useState('');
+  const [dollarValue, setDollarValue] = useState('1');
   const [bolivarValue, setBolivarValue] = useState('');
   const [selectedCard, setSelectedCard] = useState<number | null>(null);
   const [exchangeRate, setExchangeRate] = useState<number | null>(null);
+  const [selectedRateTitle, setSelectedRateTitle] = useState('Banco Central');
+
+  // Initialize with the first card's rate
+  useEffect(() => {
+    if (cardData.length > 0 && !selectedCard) {
+      handleCardClick(cardData[0].id);
+    }
+  }, []);
 
   const handleCardClick = (cardId: number) => {
     setSelectedCard(cardId);
     const card = cardData.find(card => card.id === cardId);
     if (card) {
       setExchangeRate(card.value);
-      // If dollar value is set, calculate bolivar value
-      if (dollarValue) {
-        const newBolivarValue = (parseFloat(dollarValue) * card.value).toFixed(2);
-        setBolivarValue(newBolivarValue);
-      }
+      setSelectedRateTitle(card.title);
+      
+      // Update bolivar value based on fixed dollar value (1)
+      const newBolivarValue = (1 * card.value).toFixed(2);
+      setBolivarValue(newBolivarValue);
+    }
+  };
+
+  const handleRateChange = (rateTitle: string) => {
+    const card = cardData.find(card => card.title === rateTitle);
+    if (card) {
+      handleCardClick(card.id);
     }
   };
 
   const handleImageClick = (value: number) => {
-    if (dollarValue) {
-      const newBolivarValue = (parseFloat(dollarValue) * value).toFixed(2);
-      setBolivarValue(newBolivarValue);
-    } else {
-      setBolivarValue(value.toString());
+    setBolivarValue(value.toString());
+    // Update dollar value based on the bolivar and current exchange rate
+    if (exchangeRate) {
+      const newDollarValue = (value / exchangeRate).toFixed(2);
+      setDollarValue(newDollarValue);
     }
   };
 
@@ -63,7 +78,7 @@ const Index: React.FC = () => {
     <div className="min-h-screen bg-gray-50">
       <Banner />
       
-      <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6">
+      <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6 pt-24">
         <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
           <UpdateSection />
           
@@ -81,7 +96,11 @@ const Index: React.FC = () => {
             />
           </div>
           
-          <ExchangeRateInfo />
+          <ExchangeRateInfo 
+            selectedRate={selectedRateTitle}
+            onRateChange={handleRateChange}
+            rates={cardData}
+          />
         </div>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
