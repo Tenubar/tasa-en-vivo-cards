@@ -20,10 +20,12 @@ const DownloadSection: React.FC = () => {
         
         <div className="w-full md:w-2/3 flex flex-col items-center md:items-start">
           <p className="text-lg mb-4">Obtén la App en Android</p>
-          <Button as={Link} to="/app" className="flex items-center gap-2">
-            <Download size={18} />
-            Descargar App
-          </Button>
+          <Link to="/app">
+            <Button className="flex items-center gap-2">
+              <Download size={18} />
+              Descargar App
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
