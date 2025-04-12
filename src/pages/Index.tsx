@@ -1,9 +1,12 @@
+
 import React, { useState, useEffect } from 'react';
 import Banner from '@/components/Banner';
 import UpdateSection from '@/components/UpdateSection';
 import CurrencyInput from '@/components/CurrencyInput';
 import ExchangeRateInfo from '@/components/ExchangeRateInfo';
-import Card from '@/components/Card';
+import CardWrapper from '@/components/CardWrapper';
+import DownloadSection from '@/components/DownloadSection';
+import AdvertisingSection from '@/components/AdvertisingSection';
 
 const cardData = [
   { id: 1, title: 'Banco A', image: 'ba', value: 78.36, percentChange: 1.2 },
@@ -108,19 +111,19 @@ const Index: React.FC = () => {
           />
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {cardData.map(card => (
-            <Card
-              key={card.id}
-              title={card.title}
-              image={card.image}
-              value={card.value}
-              percentChange={card.percentChange}
-              onCardClick={() => handleCardClick(card.id)}
-              onImageClick={handleImageClick}
-              isSelected={selectedCard === card.id}
-            />
-          ))}
+        <CardWrapper 
+          cardData={cardData}
+          selectedCard={selectedCard}
+          onCardClick={handleCardClick}
+          onImageClick={handleImageClick}
+        />
+        
+        <div className="mt-12">
+          <DownloadSection />
+        </div>
+        
+        <div className="mt-12">
+          <AdvertisingSection />
         </div>
       </main>
     </div>
