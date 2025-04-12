@@ -74,7 +74,7 @@ const CurrencyInput: React.FC<CurrencyInputProps> = ({
             <X size={16} />
           </button>
         )}
-        {showCopyButton && (
+        {(showCopyButton || symbol === "Bs.") && (
           <button 
             onClick={handleCopy}
             className="p-2 text-gray-400 hover:text-gray-600 transition-colors mr-1"

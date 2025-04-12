@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Banner from '@/components/Banner';
 import UpdateSection from '@/components/UpdateSection';
@@ -36,10 +35,15 @@ const Index: React.FC = () => {
       setExchangeRate(card.value);
       setSelectedRateTitle(card.title);
       
-      // Update bolivar value based on fixed dollar value (1)
-      const newBolivarValue = (1 * card.value).toFixed(2);
-      setBolivarValue(newBolivarValue);
+      // Keep the dollar value at the current amount (e.g. "1") and update bolivar based on that
+      updateBolivarBasedOnDollar(card.value);
     }
+  };
+
+  const updateBolivarBasedOnDollar = (rate: number) => {
+    const dollars = parseFloat(dollarValue) || 0;
+    const newBolivarValue = (dollars * rate).toFixed(2);
+    setBolivarValue(newBolivarValue);
   };
 
   const handleRateChange = (rateTitle: string) => {
@@ -93,6 +97,7 @@ const Index: React.FC = () => {
               symbol="Bs." 
               value={bolivarValue} 
               onChange={handleBolivarChange}
+              showCopyButton={true}
             />
           </div>
           

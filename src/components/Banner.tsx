@@ -9,8 +9,11 @@ const Banner: React.FC = () => {
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <Logo />
         <div className="flex gap-5">
+          <Link to="/app" className="text-gray-600 hover:text-tasaBlue transition-colors">
+            Descarga la App
+          </Link>
           <Link to="/publicidad" className="text-gray-600 hover:text-tasaBlue transition-colors">
-            Publicidad
+            Publicita tu Negocio
           </Link>
         </div>
       </div>
