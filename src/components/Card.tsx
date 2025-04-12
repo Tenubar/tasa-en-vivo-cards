@@ -25,6 +25,7 @@ const Card: React.FC<CardProps> = ({
 
   const handleImageClick = (e: React.MouseEvent) => {
     e.stopPropagation();
+    onCardClick(); // Also change the rate when clicking the image
     onImageClick(value);
     setIsPulse(true);
     setTimeout(() => setIsPulse(false), 500);
@@ -35,8 +36,8 @@ const Card: React.FC<CardProps> = ({
   return (
     <div
       className={cn(
-        "tasa-card",
-        isSelected && "selected",
+        "tasa-card p-4 rounded-lg cursor-pointer transition-all",
+        isSelected ? "border-2 border-tasaBlue" : "border border-gray-200",
         isPulse && "animate-card-pulse"
       )}
       onClick={onCardClick}

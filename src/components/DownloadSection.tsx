@@ -2,11 +2,10 @@
 import React from 'react';
 import { Download } from 'lucide-react';
 import { Button } from './ui/button';
-import { Link } from 'react-router-dom';
 
 const DownloadSection: React.FC = () => {
   return (
-    <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
+    <div id="download-section" className="bg-white rounded-xl shadow-sm p-6 mb-6">
       <h2 className="text-2xl font-semibold mb-4 text-center">Descarga Nuestra App!</h2>
       
       <div className="flex flex-col md:flex-row gap-6 items-center">
@@ -20,12 +19,10 @@ const DownloadSection: React.FC = () => {
         
         <div className="w-full md:w-2/3 flex flex-col items-center md:items-start">
           <p className="text-lg mb-4">Obtén la App en Android</p>
-          <Link to="/app">
-            <Button className="flex items-center gap-2">
-              <Download size={18} />
-              Descargar App
-            </Button>
-          </Link>
+          <Button className="flex items-center gap-2">
+            <Download size={18} />
+            Descargar App
+          </Button>
         </div>
       </div>
     </div>

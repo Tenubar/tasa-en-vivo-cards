@@ -1,7 +1,7 @@
 
 import React from 'react';
 import Logo from './Logo';
-import { Link } from 'react-router-dom';
+import { Link as ScrollLink } from 'react-scroll';
 
 const Banner: React.FC = () => {
   return (
@@ -9,12 +9,38 @@ const Banner: React.FC = () => {
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <Logo />
         <div className="flex gap-5">
-          <Link to="/app" className="text-gray-600 hover:text-tasaBlue transition-colors">
+          <ScrollLink 
+            to="download-section" 
+            smooth={true} 
+            duration={500} 
+            className="text-gray-600 hover:text-tasaBlue transition-colors cursor-pointer"
+          >
             Descarga la App
-          </Link>
-          <Link to="/publicidad" className="text-gray-600 hover:text-tasaBlue transition-colors">
+          </ScrollLink>
+          <ScrollLink 
+            to="advertising-section" 
+            smooth={true} 
+            duration={500}
+            className="text-gray-600 hover:text-tasaBlue transition-colors cursor-pointer"
+          >
             Publicita tu Negocio
-          </Link>
+          </ScrollLink>
+          <ScrollLink 
+            to="pricing-section" 
+            smooth={true} 
+            duration={500}
+            className="text-gray-600 hover:text-tasaBlue transition-colors cursor-pointer"
+          >
+            Precios
+          </ScrollLink>
+          <ScrollLink 
+            to="contact-section" 
+            smooth={true} 
+            duration={500}
+            className="text-gray-600 hover:text-tasaBlue transition-colors cursor-pointer"
+          >
+            Contáctanos
+          </ScrollLink>
         </div>
       </div>
     </div>
