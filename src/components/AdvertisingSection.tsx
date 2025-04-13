@@ -69,7 +69,7 @@ const AdvertisingSection: React.FC = () => {
           />
         </div>
         
-        <div className="flex justify-center gap-2 mb-6">
+        <div id="pricing-section" className="flex justify-center gap-2 mb-6">
           <Button 
             variant={billingPeriod === 'monthly' ? 'default' : 'outline'} 
             onClick={() => setBillingPeriod('monthly')}
@@ -134,7 +134,7 @@ const AdvertisingSection: React.FC = () => {
       </div>
       
       <CollapsibleContent>
-        <div className="bg-white rounded-xl shadow-sm p-6 mt-2">
+        <div id="contact-section" className="bg-white rounded-xl shadow-sm p-6 mt-2">
           <h3 className="text-xl font-semibold mb-4">Contáctanos para {
             selectedPlan === 'basic' ? 'el plan Básico' : 
             selectedPlan === 'standard' ? 'el plan Estándar' : 

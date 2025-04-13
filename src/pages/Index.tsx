@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Banner from '@/components/Banner';
 import UpdateSection from '@/components/UpdateSection';
@@ -38,7 +37,7 @@ const Index: React.FC = () => {
       setExchangeRate(card.value);
       setSelectedRateTitle(card.title);
       
-      // Keep the dollar value at the current amount (e.g. "1") and update bolivar based on that
+      // Keep the dollar value the same and update bolivar based on that
       updateBolivarBasedOnDollar(card.value);
     }
   };
@@ -57,12 +56,10 @@ const Index: React.FC = () => {
   };
 
   const handleImageClick = (value: number) => {
+    // When clicking the image, we update the bolivar value
+    // but do NOT update the dollar value
     setBolivarValue(value.toString());
-    // Update dollar value based on the bolivar and current exchange rate
-    if (exchangeRate) {
-      const newDollarValue = (value / exchangeRate).toFixed(2);
-      setDollarValue(newDollarValue);
-    }
+    // We don't update dollar value here anymore
   };
 
   const handleDollarChange = (value: string) => {
@@ -122,7 +119,7 @@ const Index: React.FC = () => {
           <DownloadSection />
         </div>
         
-        <div className="mt-12">
+        <div id="advertising-section" className="mt-12">
           <AdvertisingSection />
         </div>
       </main>
