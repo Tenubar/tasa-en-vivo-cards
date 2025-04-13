@@ -55,13 +55,6 @@ const Index: React.FC = () => {
     }
   };
 
-  const handleImageClick = (value: number) => {
-    // When clicking the image, we update the bolivar value
-    // but do NOT update the dollar value
-    setBolivarValue(value.toString());
-    // We don't update dollar value here anymore
-  };
-
   const handleDollarChange = (value: string) => {
     setDollarValue(value);
     if (value && exchangeRate) {
@@ -112,7 +105,7 @@ const Index: React.FC = () => {
           cardData={cardData}
           selectedCard={selectedCard}
           onCardClick={handleCardClick}
-          onImageClick={handleImageClick}
+          onImageClick={() => {}} // Empty function as we're not using this anymore
         />
         
         <div className="mt-12">

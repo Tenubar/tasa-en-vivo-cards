@@ -25,8 +25,8 @@ const Card: React.FC<CardProps> = ({
 
   const handleImageClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    onCardClick(); // Also change the rate when clicking the image
-    onImageClick(value);
+    onCardClick(); // This triggers the rate change
+    // We're not calling onImageClick(value) anymore since it should behave the same as clicking the card
     setIsPulse(true);
     setTimeout(() => setIsPulse(false), 500);
   };
