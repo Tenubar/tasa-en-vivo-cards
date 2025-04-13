@@ -6,7 +6,7 @@ interface CardProps {
   title: string;
   image: string;
   value: number;
-  percentChange: number;
+  percentChange?: number; // Make percentChange optional
   onCardClick: () => void;
   onImageClick: (value: number) => void;
   isSelected: boolean;
@@ -31,7 +31,8 @@ const Card: React.FC<CardProps> = ({
     setTimeout(() => setIsPulse(false), 500);
   };
 
-  const isPositive = percentChange >= 0;
+  // Check if percentChange exists before using it
+  const isPositive = percentChange !== undefined ? percentChange >= 0 : true;
 
   return (
     <div
@@ -50,9 +51,12 @@ const Card: React.FC<CardProps> = ({
         <div className="text-3xl font-bold text-gray-400">{image}</div>
       </div>
       <div className="text-lg font-semibold">{value.toFixed(2)}</div>
-      <div className={isPositive ? "text-tasaGreen" : "text-tasaRed"}>
-        {isPositive ? "+" : ""}{percentChange.toFixed(2)}%
-      </div>
+      {/* Only render the percentChange if it exists */}
+      {percentChange !== undefined && (
+        <div className={isPositive ? "text-tasaGreen" : "text-tasaRed"}>
+          {isPositive ? "+" : ""}{percentChange.toFixed(2)}%
+        </div>
+      )}
     </div>
   );
 };

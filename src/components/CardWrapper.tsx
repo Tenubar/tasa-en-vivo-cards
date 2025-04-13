@@ -8,7 +8,7 @@ interface CardWrapperProps {
     title: string;
     image: string;
     value: number;
-    percentChange: number;
+    percentChange?: number; // Make percentChange optional
   }>;
   selectedCard: number | null;
   onCardClick: (cardId: number) => void;
