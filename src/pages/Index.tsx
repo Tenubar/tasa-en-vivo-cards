@@ -23,7 +23,6 @@ const Index: React.FC = () => {
   const [exchangeRate, setExchangeRate] = useState<number | null>(null);
   const [selectedRateTitle, setSelectedRateTitle] = useState('Banco Central');
 
-  // Initialize with the first card's rate
   useEffect(() => {
     if (cardData.length > 0 && !selectedCard) {
       handleCardClick(cardData[0].id);
@@ -37,7 +36,6 @@ const Index: React.FC = () => {
       setExchangeRate(card.value);
       setSelectedRateTitle(card.title);
       
-      // Keep the dollar value the same and update bolivar based on that
       updateBolivarBasedOnDollar(card.value);
     }
   };
@@ -75,7 +73,7 @@ const Index: React.FC = () => {
     <div className="min-h-screen bg-gray-50">
       <Banner />
       
-      <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6 pt-24">
+      <main id="home" className="max-w-7xl mx-auto py-8 px-4 sm:px-6 pt-24">
         <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
           <UpdateSection />
           
@@ -108,12 +106,20 @@ const Index: React.FC = () => {
           onImageClick={() => {}} // Empty function as we're not using this anymore
         />
         
-        <div className="mt-12">
+        <div id="download-section" className="mt-12">
           <DownloadSection />
         </div>
         
         <div id="advertising-section" className="mt-12">
           <AdvertisingSection />
+        </div>
+
+        <div id="pricing-section" className="mt-12">
+          {/* Pricing section content will go here */}
+        </div>
+        
+        <div id="contact-section" className="mt-12">
+          {/* Contact section content will go here */}
         </div>
       </main>
     </div>
