@@ -19,7 +19,7 @@ interface PricingOption {
 const AdvertisingSection: React.FC = () => {
   const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'annual'>('monthly');
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true); // Set to true by default
   
   const monthlyOptions: PricingOption[] = [
     {
