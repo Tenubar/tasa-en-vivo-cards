@@ -9,12 +9,12 @@ import DownloadSection from '@/components/DownloadSection';
 import AdvertisingSection from '@/components/AdvertisingSection';
 
 const cardData = [
-  { id: 1, title: 'Banco A', image: 'ba', value: 78.36 },
-  { id: 2, title: 'Mercado I', image: 'mi', value: 100.89 },
-  { id: 3, title: 'Popular', image: 'po', value: 102.88 },
-  { id: 4, title: 'Banco U', image: 'bu', value: 50.00 },
-  { id: 5, title: 'Paralelo D', image: 'pd', value: 75.45 },
-  { id: 6, title: 'Paralelo S', image: 'ps', value: 80.12 },
+  { id: 1, title: 'Banco Central', image: 'bcv', value: 78.36 },
+  { id: 2, title: 'Dólar Paralelo', image: 'monitor', value: 100.89 },
+  { id: 3, title: 'Promedio', image: 'promedio', value: 102.88 },
+  { id: 4, title: 'Binance', image: 'binance', value: 50.00 },
+  { id: 5, title: 'PayPal', image: 'paypal', value: 75.45 },
+  { id: 6, title: 'Personalizado', image: 'custom', value: 80.12 },
 ];
 
 const Index: React.FC = () => {

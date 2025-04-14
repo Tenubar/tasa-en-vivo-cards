@@ -5,8 +5,8 @@ const Logo: React.FC = () => {
   return (
     <div className="flex flex-col">
       <div className="flex items-center gap-2">
-        <div className="h-10 w-10 bg-tasaBlue rounded-md flex items-center justify-center">
-          <span className="text-white font-bold text-lg">S</span>
+        <div className="h-10 w-10 flex items-center justify-center">
+          <img src = "/slogo.png"></img>
         </div>
         <div className="font-semibold text-tasaDarkBlue">
           <span>So</span>

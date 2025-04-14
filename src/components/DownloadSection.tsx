@@ -11,7 +11,7 @@ const DownloadSection: React.FC = () => {
       <div className="flex flex-col md:flex-row gap-6 items-center">
         <div className="w-full md:w-1/3">
           <img 
-            src="/placeholder.svg" 
+            src="images/solarFlyer.png" 
             alt="App Screenshot" 
             className="w-full h-auto rounded-lg"
           />

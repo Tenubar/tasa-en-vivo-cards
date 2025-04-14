@@ -63,7 +63,7 @@ const AdvertisingSection: React.FC = () => {
         
         <div className="flex justify-center mb-8">
           <img 
-            src="/placeholder.svg" 
+            src="images/solarPublicidad.png" 
             alt="Advertising Banner" 
             className="w-full max-w-2xl h-auto rounded-lg"
           />

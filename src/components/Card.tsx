@@ -48,7 +48,15 @@ const Card: React.FC<CardProps> = ({
         className="w-full h-24 bg-gray-100 rounded mb-3 flex items-center justify-center overflow-hidden cursor-pointer"
         onClick={handleImageClick}
       >
-        <div className="text-3xl font-bold text-gray-400">{image}</div>
+        <img 
+          src={`/images/${image}.png`} 
+          alt={title}
+          className="w-full h-full object-contain p-2"
+          onError={(e) => {
+            // Fallback to a default image if the specified one doesn't exist
+            (e.target as HTMLImageElement).src = '/images/default-bank.png';
+          }}
+        />
       </div>
       <div className="text-lg font-semibold">{value.toFixed(2)}</div>
       {/* Only render the percentChange if it exists */}
