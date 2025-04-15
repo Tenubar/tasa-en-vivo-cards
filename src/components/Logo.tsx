@@ -6,7 +6,7 @@ const Logo: React.FC = () => {
     <div className="flex flex-col">
       <div className="flex items-center gap-2">
         <div className="h-10 w-10 flex items-center justify-center">
-          <img src = "/slogo.png"></img>
+          <img src = "images/slogo.png"></img>
         </div>
         <div className="font-semibold text-tasaDarkBlue">
           <span>So</span>

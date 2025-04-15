@@ -65,7 +65,7 @@ const AdvertisingSection: React.FC = () => {
           <img 
             src="images/solarPublicidad.png" 
             alt="Advertising Banner" 
-            className="w-full max-w-2xl h-auto rounded-lg"
+            className="w-full max-w-[18rem] h-auto rounded-lg"
           />
         </div>
         

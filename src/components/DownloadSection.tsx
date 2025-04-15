@@ -4,6 +4,9 @@ import { Download } from 'lucide-react';
 import { Button } from './ui/button';
 
 const DownloadSection: React.FC = () => {
+
+  const downloadLink = 'https://play.google.com/store/apps/details?id=es.solartech&hl=es_419';
+
   return (
     <div id="download-section" className="bg-white rounded-xl shadow-sm p-6 mb-6">
       <h2 className="text-2xl font-semibold mb-4 text-center">Descarga Nuestra App!</h2>
@@ -19,10 +22,12 @@ const DownloadSection: React.FC = () => {
         
         <div className="w-full md:w-2/3 flex flex-col items-center md:items-start">
           <p className="text-lg mb-4">Obtén la App en Android</p>
+          <a href={downloadLink} target="_blank" rel="noopener noreferrer">
           <Button className="flex items-center gap-2">
             <Download size={18} />
             Descargar App
           </Button>
+          </a>
         </div>
       </div>
     </div>

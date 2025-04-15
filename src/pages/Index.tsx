@@ -8,14 +8,18 @@ import CardWrapper from '@/components/CardWrapper';
 import DownloadSection from '@/components/DownloadSection';
 import AdvertisingSection from '@/components/AdvertisingSection';
 
-const cardData = [
-  { id: 1, title: 'Banco Central', image: 'bcv', value: 78.36 },
-  { id: 2, title: 'Dólar Paralelo', image: 'monitor', value: 100.89 },
-  { id: 3, title: 'Promedio', image: 'promedio', value: 102.88 },
-  { id: 4, title: 'Binance', image: 'binance', value: 50.00 },
-  { id: 5, title: 'PayPal', image: 'paypal', value: 75.45 },
-  { id: 6, title: 'Personalizado', image: 'custom', value: 80.12 },
-];
+
+// const cardDataInitial = [
+//   { id: 1, title: 'Banco Central', image: 'bcv', value: 78.36 },
+//   { id: 2, title: 'Dólar Paralelo', image: 'monitor', value: 0 },
+//   { id: 3, title: 'Promedio', image: 'promedio', value: 102.88 },
+//   { id: 4, title: 'Binance', image: 'binance', value: 50.00 },
+//   { id: 5, title: 'PayPal', image: 'paypal', value: 75.45 },
+//   { id: 6, title: 'Personalizado', image: 'custom', value: 80.12 },
+// ];
+
+
+
 
 const Index: React.FC = () => {
   const [dollarValue, setDollarValue] = useState('1');
@@ -23,6 +27,104 @@ const Index: React.FC = () => {
   const [selectedCard, setSelectedCard] = useState<number | null>(null);
   const [exchangeRate, setExchangeRate] = useState<number | null>(null);
   const [selectedRateTitle, setSelectedRateTitle] = useState('Banco Central');
+  const [cardData, setCardData] = useState([
+    { id: 1, title: 'Banco Central', image: 'bcv', value: 78.36 },
+    { id: 2, title: 'Dólar Paralelo', image: 'monitor', value: 0 },
+    { id: 3, title: 'Promedio', image: 'promedio', value: 102.88 },
+    { id: 4, title: 'Binance', image: 'binance', value: 50.00 },
+    { id: 5, title: 'PayPal', image: 'paypal', value: 75.45 },
+    { id: 6, title: 'Personalizado', image: 'custom', value: 0 },
+]);
+
+useEffect(() => {
+  const eventSource1 = new EventSource(import.meta.env.VITE_API_BCV);
+  const eventSource2 = new EventSource(import.meta.env.VITE_API_PARALELO);
+  const eventSource4 = new EventSource(import.meta.env.VITE_API_BINANCE);
+  const eventSource5 = new EventSource(import.meta.env.VITE_API_PAYPAL);
+
+  const updateCardData = (id, newValue) => {
+      setCardData(prevCardData => {
+          const updatedCardData = prevCardData.map(card =>
+              card.id === id ? { ...card, value: newValue } : card
+          );
+
+          // Calculate and update Promedio
+          const bancoCentralValue = updatedCardData.find(card => card.id === 1)?.value || 0;
+          const dolarParaleloValue = updatedCardData.find(card => card.id === 2)?.value || 0;
+          const promedioValue = (bancoCentralValue + dolarParaleloValue) / 2;
+
+          return updatedCardData.map(card =>
+              card.id === 3 ? { ...card, value: promedioValue } : card
+          );
+      });
+  };
+
+  eventSource1.onmessage = (event) => {
+      const data = event.data;
+      const numericValue = data.replace(' Bs.', '');
+      const newValue = parseFloat(numericValue);
+
+      if (!isNaN(newValue)) {
+          updateCardData(1, newValue);
+      }
+  };
+
+  eventSource2.onmessage = (event) => {
+      const data = event.data;
+      const numericValue = data.replace(' Bs.', '');
+      const newValue = parseFloat(numericValue);
+
+      if (!isNaN(newValue)) {
+          updateCardData(2, newValue);
+      }
+  };
+
+  eventSource4.onmessage = (event) => {
+      const data = event.data;
+      const numericValue = data.replace(' Bs.', '');
+      const newValue = parseFloat(numericValue);
+
+      if (!isNaN(newValue)) {
+          updateCardData(4, newValue);
+      }
+  };
+
+  eventSource5.onmessage = (event) => {
+      const data = event.data;
+      const numericValue = data.replace(' Bs.', '');
+      const newValue = parseFloat(numericValue);
+
+      if (!isNaN(newValue)) {
+          updateCardData(5, newValue);
+      }
+  };
+
+  eventSource1.onerror = () => {
+      eventSource1.close();
+  };
+
+  eventSource2.onerror = () => {
+      eventSource2.close();
+  };
+
+  eventSource4.onerror = () => {
+      eventSource4.close();
+  };
+
+  eventSource5.onerror = () => {
+      eventSource5.close();
+  };
+
+  return () => {
+      eventSource1.close();
+      eventSource2.close();
+      eventSource4.close();
+      eventSource5.close();
+  };
+}, []);
+
+
+
 
   useEffect(() => {
     if (cardData.length > 0 && !selectedCard) {
