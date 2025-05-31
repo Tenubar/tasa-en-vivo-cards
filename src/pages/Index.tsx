@@ -19,9 +19,10 @@ const Index: React.FC = () => {
   // Track which input was last modified
   const [lastModified, setLastModified] = useState<"dollar" | "bolivar">("dollar")
   const [cardData, setCardData] = useState([
-    { id: 1, title: "Banco Central", image: "bcv", value: 78.36 },
-    { id: 2, title: "Dólar Paralelo", image: "monitor", value: 0 },
-    { id: 3, title: "Promedio", image: "promedio", value: 102.88 },
+    { id: 1, title: "Banco Central (USD)", image: "bcv", value: 78.36 },
+    { id: 2, title: "Banco Central (EUR)", image: "bcv", value: 82.88 },
+    // { id: 2, title: "Dólar Paralelo", image: "monitor", value: 0 },
+    // { id: 3, title: "Promedio", image: "promedio", value: 102.88 },
     { id: 4, title: "Binance", image: "binance", value: 50.0 },
     { id: 5, title: "PayPal", image: "paypal", value: 75.45 },
     { id: 6, title: "Personalizado", image: "custom", value: 0 },
@@ -44,7 +45,7 @@ const Index: React.FC = () => {
 
   useEffect(() => {
     const eventSource1 = new EventSource(import.meta.env.VITE_API_BCV)
-    const eventSource2 = new EventSource(import.meta.env.VITE_API_PARALELO)
+    const eventSource2 = new EventSource(import.meta.env.VITE_API_EUR)
     const eventSource4 = new EventSource(import.meta.env.VITE_API_BINANCE)
     const eventSource5 = new EventSource(import.meta.env.VITE_API_PAYPAL)
 
@@ -54,23 +55,23 @@ const Index: React.FC = () => {
 
         // Calculate and update Promedio
         const bancoCentralValue = updatedCardData.find((card) => card.id === 1)?.value || 0
-        const dolarParaleloValue = updatedCardData.find((card) => card.id === 2)?.value || 0
-        const promedioValue = (bancoCentralValue + dolarParaleloValue) / 2
+        const bancoCentralEur = updatedCardData.find((card) => card.id === 2)?.value || 0
+        // const promedioValue = (bancoCentralValue + dolarParaleloValue) / 2
 
-        const finalUpdatedData = updatedCardData.map((card) =>
-          card.id === 3 ? { ...card, value: promedioValue } : card,
-        )
+        // const finalUpdatedData = updatedCardData.map((card) =>
+        //   card.id === 3 ? { ...card, value: promedioValue } : card,
+        // )
 
         // If the updated card is the currently selected one, update the exchange rate
-        if (selectedCard === id || (selectedCard === 3 && (id === 1 || id === 2))) {
-          const selectedCardData = finalUpdatedData.find((card) => card.id === selectedCard)
-          if (selectedCardData) {
-            setExchangeRate(selectedCardData.value)
-          }
+        if (selectedCard === id) {
+        const selectedCardData = updatedCardData.find((card) => card.id === selectedCard)
+        if (selectedCardData) {
+          setExchangeRate(selectedCardData.value)
         }
+      }
 
-        return finalUpdatedData
-      })
+      return updatedCardData
+    })
     }
 
     eventSource1.onmessage = (event) => {
@@ -83,6 +84,7 @@ const Index: React.FC = () => {
       }
     }
 
+
     eventSource2.onmessage = (event) => {
       const data = event.data
       const numericValue = data.replace(" Bs.", "")
@@ -92,6 +94,7 @@ const Index: React.FC = () => {
         updateCardData(2, newValue)
       }
     }
+
 
     eventSource4.onmessage = (event) => {
       const data = event.data
